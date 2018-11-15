@@ -11,3 +11,9 @@
     name: 'app'
   }
 </script>
+
+<style>
+body {
+  background-color: #03a5ff73;
+}
+</style>
