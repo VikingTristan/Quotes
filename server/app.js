@@ -40,3 +40,25 @@ app.get("/api", (req, res) => {
         _id: -1
     });
 });
+
+//CREATE
+app.post("/api/quotes", (req, res) => {
+    const text = req.body.text;
+    const author = req.body.author;
+
+    const newQuote = new Quote({
+        text: text,
+        author: author
+    });
+
+    newQuote.save(function (e) {
+        if (e) {
+            console.log("Error: ", e);
+        }
+
+        res.send({
+            success: true,
+            message: "Quote created!"
+        });
+    });
+});

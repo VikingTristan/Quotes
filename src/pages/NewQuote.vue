@@ -30,6 +30,7 @@
 
 <script>
 import QuotesService from "@/services/QuotesService";
+let px = window.px || {};
 
 export default {
     name: "NewQuote",
@@ -45,7 +46,7 @@ export default {
                 text: this.text,
                 author: this.author
             });
-            this.$snotify.success("Quote added");
+            px.toast({html:"Quote added", type:"success"});
             this.$router.push({
                 name: "Quotes"
             });
