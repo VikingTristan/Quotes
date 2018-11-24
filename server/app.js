@@ -5,23 +5,10 @@ const serveStatic = require("serve-static");
 const history = require("connect-history-api-fallback"); // <-- Middleware to proxy requests through a specified index page, useful for Single Page Applications that utilise the HTML5 History API.
 
 const app = express();
-app.use(history());
 
 const port = process.env.PORT || 8080;
 
 const isDev = process.env.NODE_ENV !== "production";
-
-if (isDev) {
-    //TODO We wanna serve the development vue stuff here... how?
-    app.use("/", serveStatic("dist"));
-} else {
-    //If production serve dist files...
-    app.use("/", serveStatic("dist"));
-}
-
-app.listen(port, () => {
-    console.log("Server running at port: " + port);
-});
 
 //Database connection
 require("./db");
@@ -116,4 +103,19 @@ app.delete("/api/quotes/:id", (req, res) => {
             success: true
         });
     });
+});
+
+app.use(history({
+    verbose:true
+}));
+if (isDev) {
+    //TODO We wanna serve the development vue stuff here... how?
+    app.use("/", serveStatic("dist"));
+} else {
+    //If production serve dist files...
+    app.use("/", serveStatic("dist"));
+}
+
+app.listen(port, () => {
+    console.log("Server running at port: " + port);
 });
