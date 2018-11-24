@@ -1,15 +1,23 @@
-//Fast, unopinionated, minimalist web framework for node.
 const express = require("express");
-//Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
-const bodyParser = require("body-parser");
-//HTTP request logger middleware for node.js
-const morgan = require("morgan");
+const bodyParser = require("body-parser"); //<-- Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
+const morgan = require("morgan"); //<-- HTTP request logger middleware for node.js
+const serveStatic = require("serve-static");
+const history = require("connect-history-api-fallback"); // <-- Middleware to proxy requests through a specified index page, useful for Single Page Applications that utilise the HTML5 History API.
 
 const app = express();
+app.use(history());
 
 const port = process.env.PORT || 8080;
 
-app.use(express.static("dist"));
+const isDev = process.env.NODE_ENV !== "production";
+
+if (isDev) {
+    //TODO We wanna serve the development vue stuff here... how?
+    app.use("/", serveStatic("dist"));
+} else {
+    //If production serve dist files...
+    app.use("/", serveStatic("dist"));
+}
 
 app.listen(port, () => {
     console.log("Server running at port: " + port);
