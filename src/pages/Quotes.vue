@@ -7,12 +7,7 @@
         </header>
         <div class="panel-body">
           <div v-if="!fetching">
-            <div v-if="!quotes.length" style="padding: 50px; text-align: center;">
-              <h1 v-html="shrugGuy"></h1>
-              <h2>There are no quotes.</h2>
-              <router-link v-bind:to="{ name: 'NewQuote' }" class="btn btn-primary">Add the first Quote</router-link>
-            </div>
-            <table class="table table-hover" v-if="quotes.length">
+            <table class="table table-hover" v-if="quotes && quotes.length">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -38,13 +33,18 @@
                 </tr>
               </tbody>
             </table>
+            <div v-else style="padding: 50px; text-align: center;">
+              <h1 v-html="shrugGuy"></h1>
+              <h2>There are no quotes.</h2>
+              <router-link v-bind:to="{ name: 'NewQuote' }" class="btn btn-primary">Add the first Quote</router-link>
+            </div>            
           </div>
           <div v-if="errors.api" style="padding: 50px; text-align: center;">
             <h1 v-html="shrugGuy"></h1>
             <h2 class="color-danger">No API connection.</h2>
           </div>
         </div>
-        <footer v-if="quotes.length">
+        <footer v-if="quotes && quotes.length">
           <router-link v-bind:to="{ name: 'NewQuote' }" class="btn btn-primary btn-lg">
             + Add Quote
           </router-link>
