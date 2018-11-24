@@ -33,7 +33,7 @@
 
 <script>
 import QuotesService from "@/services/QuotesService.js";
-let px = window.px || {};
+const px = window.px || {};
 
 export default {
     name: "EditQuote",
