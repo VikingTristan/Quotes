@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6 offset-md-3">
+            <div class="col-6">
                 <section class="panel panel-default">
                     <header>
                         <h2 class="panel-title">Edit quote</h2>
@@ -11,7 +11,7 @@
                             <div class="form-group">
                                 <label for="author">Author</label>
                                 <div class="input-group">
-                                    <input v-model="author" type="text" id="author" class="form-control" placeholder="Enter author of quote" />
+                                    <input autofocus v-model="author" type="text" id="author" class="form-control" placeholder="Enter author of quote" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -21,7 +21,7 @@
                                         placeholder="Enter quote" />
                                     </div>
                             </div>
-                            <button class="btn btn-lg btn-brand" type="button" @click="updateQuote">Update quote</button>
+                            <button class="btn btn-lg btn-primary" type="button" @click="updateQuote">Update quote</button>
                             <button class="btn btn-xs btn-outline-danger" type="button" @click="deleteQuote">Delete quote</button>
                         </form>
                     </div>
@@ -33,6 +33,7 @@
 
 <script>
 import QuotesService from "@/services/QuotesService.js";
+let px = window.px || {};
 
 export default {
     name: "EditQuote",
@@ -54,10 +55,7 @@ export default {
                 this.text = response.data.text;
                 this.author = response.data.author;
             } catch (e) {
-                this.$snotify.error("You need to be logged in to do that.", "Unauthorized");
-                this.$router.push({
-                    name: "Login"
-                });
+                px.toast({html: "Unable to fetch quote...", type: "danger"});
             }
         },
         async updateQuote() {
@@ -75,15 +73,15 @@ export default {
                 await QuotesService.deleteQuote({
                     id: this.$route.params.id
                 });
-                this.$snotify.success("Quote deleted");
+                px.toast({html:"Quote deleted", type:"success"});
                 this.$router.push({
                     name: "Quotes"
                 });
             } catch (e) {
-                this.$snotify.error("You need to be logged in to do that.", "Unauthorized");
-                this.$router.push({
-                    name: "Login"
-                });
+                px.toast({html:"Unable to delete quote...", type:"danger"});
+                // this.$router.push({
+                //     name: "Login"
+                // });
             }
         }
     }

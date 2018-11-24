@@ -12,7 +12,7 @@ const port = process.env.PORT || 8080;
 app.use(express.static('dist'));
 
 app.listen(port, () => {
-    console.log("Server running at port: " + port);    
+    console.log("Server running at port: " + port);
 });
 
 //Database connection
@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 ****************/
 //FETCH ALL
 app.get("/api", (req, res) => {
-    Quote.find({}, "text author", function (error, quotes) {
+    Quote.find({}, "text author", (error, quotes) => {
         if (error) {
             console.error("Error: ", error);
         }
@@ -38,6 +38,21 @@ app.get("/api", (req, res) => {
         });
     }).sort({
         _id: -1
+    });
+});
+
+//FETCH SINGLE
+app.get("/api/quote/:id", (req, res) => {
+    Quote.findById(req.params.id, "text author", (error, quote) => {
+        if (error) {
+            console.log("Error: ", error);
+            res.status(500).send({
+                success: false,
+                message: "Unable to fetch quote."
+            });
+            return;
+        }
+        res.send(quote);
     });
 });
 
@@ -51,14 +66,46 @@ app.post("/api/quotes", (req, res) => {
         author: author
     });
 
-    newQuote.save(function (e) {
-        if (e) {
-            console.log("Error: ", e);
+    newQuote.save(err => {
+        if (err) {
+            console.log("Error: ", err);
         }
 
         res.send({
             success: true,
             message: "Quote created!"
+        });
+    });
+});
+
+//UPDATE
+app.put("/api/quotes/:id", (req, res) => {
+    Quote.findById(req.params.id, "text author", (error, quote) => {
+        if (error)
+            console.log("Error updating quote:", error);
+
+        quote.text = req.body.text;
+        quote.author = req.body.author;
+        quote.save(err => {
+            if (err)
+                console.log("Error:", err);
+
+            res.send({
+                success: true
+            });
+        });
+    });
+});
+
+//DELETE
+app.delete("/api/quotes/:id", (req, res) => {
+    Quote.remove({
+        _id: req.params.id
+    }, err => {
+        if (err)
+            res.send(err);
+        res.send({
+            success: true
         });
     });
 });

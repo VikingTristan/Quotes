@@ -10,7 +10,7 @@
                         <div class="form-group">
                             <label for="author">Author</label>
                             <div class="input-group">
-                                <input v-model="author" type="text" id="author" class="form-control" placeholder="Enter author of quote" />
+                                <input autofocus v-model="author" type="text" id="author" class="form-control" placeholder="Enter author of quote" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -20,7 +20,7 @@
                                     placeholder="Enter quote" />
                                 </div>
                         </div>
-                         <button class="btn btn-brand pull-right" type="button" @click="addQuote">Submit quote</button>
+                         <button class="btn btn-primary pull-right" type="button" @click="addQuote">Submit quote</button>
                     </form>
                 </div>
             </section>
