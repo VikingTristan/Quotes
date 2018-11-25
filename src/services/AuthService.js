@@ -16,10 +16,11 @@ export default class AuthService {
         this.isAuthenticated = this.isAuthenticated.bind(this);
     }
 
+    //Defaulted values are there because .env is being a little b&%3*$ in captainduckduck docker containers it seems
     auth0 = new auth0.WebAuth({
-        domain: process.env.VUE_APP_AUTH0_DOMAIN,
-        clientID: process.env.VUE_APP_AUTH0_CLIENT_ID,
-        redirectUri: process.env.VUE_APP_AUTH0_CALLBACK_URL,
+        domain: process.env.VUE_APP_AUTH0_DOMAIN || "vikingtom.eu.auth0.com",
+        clientID: process.env.VUE_APP_AUTH0_CLIENT_ID || "F1hb28fJPjkXfeg36d5cbRcTy544lOHp",
+        redirectUri: process.env.VUE_APP_AUTH0_CALLBACK_URL || "http://quotes.swarms.vikingtom.ninja/callback",
         responseType: "token id_token",
         scope: "openid"
     })
@@ -33,6 +34,7 @@ export default class AuthService {
                     name: "Quotes"
                 });
             } else if (err) {
+                px.toast({html:err.errorDescription, type:"danger"});
                 router.push({
                     name: "Quotes"
                 });
@@ -50,6 +52,7 @@ export default class AuthService {
         localStorage.setItem("access_token", authResult.accessToken);
         localStorage.setItem("id_token", authResult.idToken);
         localStorage.setItem("expires_at", expiresAt);
+        console.log("Auth result?", authResult);
         px.toast({html:"You are logged in.", type:"success"});
         this.authNotifier.emit("authChange", {
             authenticated: true

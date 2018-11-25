@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser"); //<-- Parse incoming request bodies in a middleware before your handlers, available under the req.body property.
 const morgan = require("morgan"); //<-- HTTP request logger middleware for node.js

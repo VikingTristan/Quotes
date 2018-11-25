@@ -48,11 +48,20 @@ const px = window.px || {};
 
 export default {
     name: "NewQuote",
+    props: ["auth"],
     data () {
         return {
             text: "",
             author: ""
         };
+    },
+    mounted(){
+      if(!this.auth.authenticated){
+            px.toast({html:"Access denied, friend.", type:"danger"});
+            this.$router.push({
+                name:"Quotes"
+            });
+        }
     },
     methods: {
         async addQuote () {

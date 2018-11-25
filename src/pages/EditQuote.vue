@@ -16,8 +16,8 @@
                     v-model="author" 
                     autofocus 
                     type="text" 
-                    class="form-control" 
-                    placeholder="Enter author of quote" >
+                    class="form-control"
+                    placeholder="Enter author of quote">
                 </div>
               </div>
               <div class="form-group">
@@ -54,6 +54,7 @@ const px = window.px || {};
 
 export default {
     name: "EditQuote",
+    props: ["auth"],
     data() {
         return {
             text: "",
@@ -61,7 +62,14 @@ export default {
         };
     },
     mounted() {
-        this.getQuote();
+        if(!this.auth.authenticated){
+            px.toast({html:"Access denied, friend.", type:"danger"});
+            this.$router.push({
+                name:"Quotes"
+            });
+        } else {
+            this.getQuote();
+        }
     },
     methods: {
         async getQuote() {
