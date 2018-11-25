@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <section class="panel panel-default">
         <header>
-          <h2 class="panel-title">Quotes</h2>
+          <h2 class="panel-title">Quotes</h2>          
         </header>
         <div class="panel-body">
           <div v-if="!fetching">
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-  import QuotesService from "@/services/QuotesService";
+  import QuotesService from "@/services/QuotesService"; 
 
   export default {
     name: "Quotes",
