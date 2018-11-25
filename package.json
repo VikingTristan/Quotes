@@ -42,7 +42,7 @@
       "eslint:recommended"
     ],
     "rules": {
-      "vue/require-prop-types": false,
+      "vue/require-prop-types": 0,
       "no-var": [
         "warn"
       ],
