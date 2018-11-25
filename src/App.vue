@@ -1,28 +1,65 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div class="row justify-content-end">
+      <div class="col-2">
+        <button 
+          v-if="!authenticated" 
+          type="button"
+          class="btn btn-sm btn-primary"
+          @click="login()">
+          <i class="material-icons">security</i>
+          <span>Hackerman</span>
+        </button>
+        <button 
+          v-if="authenticated" 
+          type="button"
+          class="btn btn-sm btn-danger"
+          @click="logout()">
+          <i class="material-icons">exit_to_app</i>
+          <span>Hackermat OUT!</span>
+        </button>
+      </div>
+    </div>
+    <div class="container">
+      <router-view 
+        :auth="auth" 
+        :authentication="authenticated"/>
+    </div>
   </div>
 </template>
 
 <script>
-  import HelloWorld from './components/HelloWorld.vue'
+  import AuthService from "@/services/AuthService";
+
+  const auth = new AuthService();
+
+  const {
+    login,
+    logout,
+    authenticated,
+    authNotifier
+  } = auth;
 
   export default {
-    name: 'app',
-    components: {
-      HelloWorld
+    name: "App",
+    data() {
+      authNotifier.on("authChange", authState => {
+        this.authenticated = authState.authenticated;
+      });
+      return {
+        auth,
+        authenticated
+      };
+    },
+    methods: {
+      login,
+      logout
     }
-  }
+  };
 </script>
 
 <style>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+  body {
+    background-color: #03a5ff73;
   }
 </style>
