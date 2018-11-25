@@ -8,6 +8,7 @@
     "vue": "vue-cli-service build --mode development --watch",
     "lint": "vue-cli-service lint",
     "server": "nodemon server/app.js",
+    "build:webpack": "webpack --mode production",
     "start": "node server/app.js"
   },
   "dependencies": {
@@ -30,7 +31,8 @@
     "@vue/cli-service": "^3.1.4",
     "babel-plugin-root-import": "^6.1.0",
     "nodemon": "^1.18.6",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.17",
+    "webpack-cli": "^3.1.2"
   },
   "eslintConfig": {
     "root": true,
