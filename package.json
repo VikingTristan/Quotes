@@ -8,6 +8,7 @@
     "build:dev": "vue-cli-service build --mode development --watch",
     "lint": "vue-cli-service lint",
     "server": "nodemon server/app.js",
+    "server:prod": "node server/app.js",
     "start": "npm run build:dev"
   },
   "dependencies": {
