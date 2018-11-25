@@ -9,9 +9,9 @@ Created with Vue and Express. Uses MongoDB and Auth0.
 npm install
 ```
 
-#### Compiles and watch for development
+#### Compiles and watch frontend files for development
 ```
-npm start
+npm run vue
 ```
 
 #### Starts express server with nodemon for development
@@ -32,6 +32,7 @@ npm run lint
 ## .env
 
 You'll need to create a .env file at the root of the project with the following environment variables:
+ - DB_URI=
  - VUE_APP_AUTH0_DOMAIN=
  - VUE_APP_AUTH0_CLIENT_ID=
  - VUE_APP_AUTH0_CLIENT_SECRET=

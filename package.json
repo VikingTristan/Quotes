@@ -5,11 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:dev": "vue-cli-service build --mode development --watch",
+    "vue": "vue-cli-service build --mode development --watch",
     "lint": "vue-cli-service lint",
     "server": "nodemon server/app.js",
-    "server:prod": "node server/app.js",
-    "start": "npm run build:dev"
+    "start": "node server/app.js"
   },
   "dependencies": {
     "EventEmitter": "^1.0.0",
