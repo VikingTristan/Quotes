@@ -33,6 +33,7 @@ export default class AuthService {
                     name: "Quotes"
                 });
             } else if (err) {
+                px.toast({html:err.errorDescription, type:"danger"});
                 router.push({
                     name: "Quotes"
                 });
@@ -50,6 +51,7 @@ export default class AuthService {
         localStorage.setItem("access_token", authResult.accessToken);
         localStorage.setItem("id_token", authResult.idToken);
         localStorage.setItem("expires_at", expiresAt);
+        console.log("Auth result?", authResult);
         px.toast({html:"You are logged in.", type:"success"});
         this.authNotifier.emit("authChange", {
             authenticated: true

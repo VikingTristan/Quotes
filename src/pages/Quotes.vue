@@ -15,6 +15,7 @@
                   <th scope="col">#</th>
                   <th scope="col">Quote</th>
                   <th 
+                    v-if="auth.authenticated" 
                     scope="col" 
                     class="pull-right"/>
                 </tr>
@@ -34,8 +35,10 @@
                       </footer>
                     </blockquote>
                   </td>
-                  <td class="pull-right">
-                    <router-link 
+                  <td 
+                    v-if="auth.authenticated" 
+                    class="pull-right">
+                    <router-link                       
                       :to="{name: 'EditQuote', params: {id: quote._id}}" 
                       :key="'bob-'+index" 
                       class="btn btn-warning">Edit
@@ -50,7 +53,8 @@
               <h1 v-html="shrugGuy"/>
               <h2>There are no quotes.</h2>
               <router-link 
-                :to="{ name: 'NewQuote' }" 
+                v-if="auth.authenticated"
+                :to="{ name: 'NewQuote' }"
                 class="btn btn-primary">Add the first Quote</router-link>
             </div>            
           </div>
@@ -61,7 +65,7 @@
             <h2 class="color-danger">No API connection.</h2>
           </div>
         </div>
-        <footer v-if="quotes && quotes.length">
+        <footer v-if="quotes && quotes.length && auth.authenticated">
           <router-link 
             :to="{ name: 'NewQuote' }" 
             class="btn btn-primary btn-lg">
@@ -78,6 +82,7 @@
 
   export default {
     name: "Quotes",
+    props: ["auth"],
     data() {
       return {
         fetching: true,
