@@ -8,7 +8,7 @@
     "vue": "vue-cli-service build --mode development --watch",
     "lint": "vue-cli-service lint",
     "server": "nodemon server/app.js",
-    "start": "npm run build && node server/app.js"
+    "start": "node server/app.js"
   },
   "dependencies": {
     "EventEmitter": "^1.0.0",

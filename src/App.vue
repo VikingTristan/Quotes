@@ -17,7 +17,7 @@
             class="btn btn-sm btn-danger"
             @click="logout()">
             <i class="material-icons">exit_to_app</i>
-            <span>Hackermat OUT!</span>
+            <span>Hackerman OUT!</span>
           </button>
         </div>
       </div>
