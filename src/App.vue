@@ -1,26 +1,22 @@
 <template>
   <div id="app">    
-    <div class="container">
-      <div class="row justify-content-end">
-        <div class="col-2">
-          <button 
-            v-if="!authenticated" 
-            type="button"
-            class="btn btn-sm btn-primary"
-            @click="login()">
-            <i class="material-icons">security</i>
-            <span>Hackerman</span>
-          </button>
-          <button 
-            v-if="authenticated" 
-            type="button"
-            class="btn btn-sm btn-danger"
-            @click="logout()">
-            <i class="material-icons">exit_to_app</i>
-            <span>Hackerman OUT!</span>
-          </button>
-        </div>
-      </div>
+    <div class="container mt-3">
+      <button 
+        v-if="!authenticated" 
+        type="button"
+        class="btn btn-sm btn-primary"
+        @click="login()">
+        <i class="material-icons">security</i>
+        <span>Hackerman</span>
+      </button>
+      <button 
+        v-if="authenticated" 
+        type="button"
+        class="btn btn-sm btn-danger"
+        @click="logout()">
+        <i class="material-icons">exit_to_app</i>
+        <span>Hackerman OUT!</span>
+      </button>
       <router-view 
         :auth="auth" 
         :authentication="authenticated"/>
