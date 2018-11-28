@@ -5,16 +5,18 @@ const morgan = require("morgan"); //<-- HTTP request logger middleware for node.
 
 const app = express();
 
+app.use(morgan("combined"));
+app.use(bodyParser.json());
+
 const port = process.env.PORT || 8080;
 
 //Database connection
 require("./db");
 
-app.use(morgan("combined"));
-app.use(bodyParser.json());
-
+//Routes
 require("./routes")(app);
 
+//Start server
 app.listen(port, () => {
     console.log("Server running at port: " + port);
 });
