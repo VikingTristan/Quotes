@@ -12,7 +12,7 @@
             return {};
         },
         mounted() {
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.$router.push({
                     name: "Quotes"
                 });
