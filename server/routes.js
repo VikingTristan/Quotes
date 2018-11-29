@@ -7,9 +7,7 @@ const isDev = process.env.NODE_ENV !== "production";
 const Quote = require("./models/quote");
 
 module.exports = function (app) {
-    /****************
-       Q U O T E S 
-    ****************/
+
     //FETCH ALL
     app.get("/api", (req, res) => {
         Quote.find({}, "text author", (error, quotes) => {
@@ -36,6 +34,39 @@ module.exports = function (app) {
                 return;
             }
             res.send(quote);
+        });
+    });
+
+    //FETCH ONE RANDOM
+    app.get("/api/random", (req, res) => {
+        // Get the count of all quotes
+        Quote.count().exec(function (error, count) {
+
+            if (error) {
+                console.log("Error: ", error);
+                res.status(500).send({
+                    success: false,
+                    message: "Unable to fetch a random quote."
+                });
+                return;
+            }
+
+            // Get a random entry
+            const random = Math.floor(Math.random() * count);
+
+            // Again query all quotes but only fetch one offset by our random numberino
+            Quote.findOne({}, "text author").skip(random).exec(
+                function (error, quote) {
+                    if (error) {
+                        console.log("Error: ", error);
+                        res.status(500).send({
+                            success: false,
+                            message: "Unable to fetch a random quote."
+                        });
+                        return;
+                    }
+                    res.send(quote);
+                });
         });
     });
 
